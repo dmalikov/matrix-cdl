@@ -1,9 +1,12 @@
 {-# LANGUAGE UnicodeSyntax #-}
+{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE ImpredicativeTypes #-}
 {-# LANGUAGE Rank2Types #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 module Data.Array.Repa.Algorithms.Matrix.Boolean
-  ( mmultSL, transpose2SL
+  ( mmultSL, mmultPL
+  , transpose2SL, transpose2PL
   ) where
 
 import Data.Algebra.Boolean
@@ -17,10 +20,16 @@ import Data.Array.Repa.Operators.Reduction.Boolean
 import Data.Vector.Unboxed as V hiding (null)
 import Control.Monad.ST.Strict
 
-{-
 -- MmultL ----------------------------------------------------------------------
 -- | Matrix matrix multiply, in parallel.
-mmultPL ∷ (CDL l, Elt l, V.Unbox l, Monad m) ⇒ Matrix l → Matrix l → m (Matrix l)
+mmultPL ∷ ( Monad m
+          , Source r e
+          , Source r2 e
+          , Unbox e, Elt e, CDL e, Target r2 e
+          )
+        ⇒    Array r  DIM2 e
+        →    Array r  DIM2 e
+        → m (Array r2 DIM2 e)
 mmultPL arr brr = [arr, brr] `deepSeqArrays` do
   trr ← transpose2PL brr
   let (Z :. h1  :. _)  = extent arr
@@ -29,7 +38,6 @@ mmultPL arr brr = [arr, brr] `deepSeqArrays` do
     (R.unsafeSlice arr (Any :. row ix :. All))
     (R.unsafeSlice trr (Any :. col ix :. All))
 {-# NOINLINE mmultPL #-}
--}
 
 -- | Matrix matrix multiply, sequentially.
 mmultSL ∷ (Elt l, V.Unbox l) ⇒ Matrix l → Matrix l → Matrix l
@@ -42,22 +50,26 @@ mmultSL arr brr = [arr, brr] `deepSeqArrays` runST $ do
     (R.unsafeSlice trr (Any :. col ix :. All))
 {-# NOINLINE mmultSL #-}
 
-{-
 -- TransposeL ------------------------------------------------------------------
 -- | Transpose a 2D matrix, in parallel.
-transpose2PL ∷ Monad m ⇒ Matrix l → m (Matrix l)
-transpose2PL arr = arr `deepSeqArray` computeUnboxedP $
+transpose2PL ∷ ( Monad m
+               , Shape ((Z :. head) :. head1)
+               , Shape ((Z :. head1) :. head)
+               , Source r e, Unbox e
+               )
+             ⇒    Array r ((Z :. head) :. head1) e
+             → m (Array U ((Z :. head1) :. head) e)
+transpose2PL arr = arr `deepSeqArray` R.computeUnboxedP $
   R.unsafeBackpermute new_extent swap arr
  where
   swap (Z :. i :. j) = Z :. j :. i
   new_extent         = swap (extent arr)
 {-# NOINLINE transpose2PL #-}
--}
 
 
 -- | Transpose a 2D matrix, sequentially.
 transpose2SL ∷ V.Unbox l ⇒ Matrix l → Matrix l
-transpose2SL arr = arr `deepSeqArray` computeUnboxedS $
+transpose2SL arr = arr `deepSeqArray` R.computeUnboxedS $
   R.unsafeBackpermute new_extent swap arr
  where
   swap (Z :. i :. j) = Z :. j :. i

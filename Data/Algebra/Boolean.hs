@@ -1,6 +1,5 @@
 {-# LANGUAGE UnicodeSyntax #-}
 {-# LANGUAGE Rank2Types #-}
-{-# LANGUAGE TypeOperators #-}
 module Data.Algebra.Boolean
   ( CDL(..), Matrix
   ) where

@@ -2,23 +2,55 @@ Name:                   repa-cdl
 Version:                0.0.1
 Category:               Data Structures
 Synopsis:               repa extension for CDL (Complement Distributive Lattices)
-Description:            CDL is a shorthand for boolean algebra. In mathematics, boolean algebra data structure is a is a six-tuple consisting of a set A, equipped with two binary operations ∧ (called "meet" or "and"), ∨ (called "join" or "or"), a unary operation ¬ (called "complement" or "not") and two elements 0 and 1 (sometimes denoted by the symbols ⊥ and ⊤, respectively), such that for all elements a, b and c of A, the following axioms hold:
-
+Description:
+  \"CDL\" is a shorthand for boolean algebra.
+  .
+  In mathematics, boolean algebra data structure is a is a six-tuple consisting of:
+  .
+  * set A
+  .
+  * binary operation ∧ (called \"meet\")
+  .
+  * binary operation ∨ (called \"join\")
+  .
+  * unary operation &#xAC; (called \"complement\")
+  .
+  * 0 element (sometimes denoted by &#x27D8;)
+  .
+  * 1 element (sometimes denoted by &#x27D9;)
+  .
+  / Axioms /
+  .
   - associativity:
-  - - a ∨ (b ∨ c) = (a ∨ b) ∨ c
-  - - a ∧ (b ∧ c) = (a ∧ b) ∧ c
+  .
+  a ∨ (b ∨ c) = (a ∨ b) ∨ c
+  .
+  a ∧ (b ∧ c) = (a ∧ b) ∧ c
+  .
   - commutativity:
-  - - a ∨ b = b ∨ a
-  - - a ∧ b = b ∧ a
+  .
+  a ∨ b = b ∨ a
+  .
+  a ∧ b = b ∧ a
+  .
   - identity:
-  - - a ∨ 0 = a
-  - - a ∧ 1 = aA
+  .
+  a ∨ 0 = a
+  .
+  a ∧ 1 = aA
+  .
   - distributivity:
-  - - a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c)
-  - - a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c)
+  .
+  a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c)
+  .
+  a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c)
+  .
   - complements:
-  - - a ∨ ¬a = 1
-  - - a ∧ ¬a = 0
+  .
+  a ∨ &#xAC;a = 1
+  .
+  a ∧ &#xAC;a = 0
+  .
 
 License:                MIT
 License-file:           LICENSE

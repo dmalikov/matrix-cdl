@@ -1,0 +1,51 @@
+Name:                   repa-cdl
+Version:                0.0.1
+Category:               Data Structures
+Synopsis:               repa extension for CDL (Complement Distributive Lattices)
+Description:            CDL is a shorthand for boolean algebra. In mathematics, boolean algebra data structure is a is a six-tuple consisting of a set A, equipped with two binary operations ∧ (called "meet" or "and"), ∨ (called "join" or "or"), a unary operation ¬ (called "complement" or "not") and two elements 0 and 1 (sometimes denoted by the symbols ⊥ and ⊤, respectively), such that for all elements a, b and c of A, the following axioms hold:
+
+  - associativity:
+  - - a ∨ (b ∨ c) = (a ∨ b) ∨ c
+  - - a ∧ (b ∧ c) = (a ∧ b) ∧ c
+  - commutativity:
+  - - a ∨ b = b ∨ a
+  - - a ∧ b = b ∧ a
+  - identity:
+  - - a ∨ 0 = a
+  - - a ∧ 1 = aA
+  - distributivity:
+  - - a ∨ (b ∧ c) = (a ∨ b) ∧ (a ∨ c)
+  - - a ∧ (b ∨ c) = (a ∧ b) ∨ (a ∧ c)
+  - complements:
+  - - a ∨ ¬a = 1
+  - - a ∧ ¬a = 0
+
+License:                MIT
+License-file:           LICENSE
+
+Author:                 Dmitry Malikov
+Maintainer:             Dmitry Malikov <malikov.d.y@gmail.com>
+
+Build-type:             Simple
+Cabal-version:          >= 1.6
+Homepage:               _
+
+Library
+  Build-Depends:        base >= 3 && < 5,
+                        repa >= 3.2.2.2,
+                        repa-algorithms >= 3.2.2.1,
+                        vector >= 0.9.1
+
+  HS-Source-Dirs:       ./
+
+  Exposed-Modules:      Data.Array.Repa.Operators.Reduction.Boolean,
+                        Data.Array.Repa.Algorithms.Matrix.Boolean,
+                        Data.Algebra.Boolean
+
+  GHC-Options:          -Wall
+
+
+Source-repository head
+  type:                 git
+  location:             _
+

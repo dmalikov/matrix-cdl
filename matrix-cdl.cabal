@@ -1,7 +1,7 @@
-Name:                   repa-cdl
+Name:                   matrix-cdl
 Version:                0.0.1
 Category:               Data Structures
-Synopsis:               repa extension for CDL (Complement Distributive Lattices)
+Synopsis:               matrix operations over CDL (Complement Distributive Lattices)
 Description:
   \"CDL\" is a shorthand for boolean algebra.
   .
@@ -63,15 +63,11 @@ Cabal-version:          >= 1.6
 Homepage:               _
 
 Library
-  Build-Depends:        base >= 3 && < 5,
-                        repa >= 3.2.2.2,
-                        repa-algorithms >= 3.2.2.1,
-                        vector >= 0.9.1
+  Build-Depends:        base >= 3 && < 5
 
   HS-Source-Dirs:       ./
 
-  Exposed-Modules:      Data.Array.Repa.Operators.Reduction.Boolean,
-                        Data.Array.Repa.Algorithms.Matrix.Boolean,
+  Exposed-Modules:      Data.Array.Boolean,
                         Data.Algebra.Boolean
 
   GHC-Options:          -Wall

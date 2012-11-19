@@ -1,10 +1,9 @@
 {-# LANGUAGE UnicodeSyntax #-}
 {-# LANGUAGE Rank2Types #-}
 module Data.Algebra.Boolean
-  ( CDL(..), Matrix
+  ( CDL(..)
   ) where
 
-import Data.Array.Repa
 
 -- | CDL stands for «complement distributive lattice»
 
@@ -21,5 +20,3 @@ instance CDL Bool where
   complement = not
   null = False
   id = True
-
-type Matrix l = CDL l ⇒ Array U DIM2 l

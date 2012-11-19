@@ -1,14 +1,14 @@
 #!/usr/bin/runhaskell
 {-# LANGUAGE UnicodeSyntax #-}
-import Data.Array.Repa
-import Data.Array.Repa.Algorithms.Matrix.Boolean
+
+import Data.Array.Boolean
 
 examplePassed :: Bool
-examplePassed = x `mmultSL` b == a
+examplePassed = x `mult` b == a
   where
-    a = fromListUnboxed (Z :. (2::Int) :. (3::Int)) [False,True,False,True, True, True]
-    b = fromListUnboxed (Z :. (2::Int) :. (3::Int)) [True,False,True,False,True,False]
-    x = fromListUnboxed (Z :. (2::Int) :. (2::Int)) [False, True, True, True]
+    a = Matrix (2,3) [False,True,False,True,True,True]
+    b = Matrix (2,3) [True,False,True,False,True,False]
+    x = Matrix (2,2) [False,True,True,True]
 
 main ∷ IO ()
 main = print examplePassed
